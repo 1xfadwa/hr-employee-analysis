@@ -1,0 +1,53 @@
+// HR Employee Attrition dashboard: measures and calculated columns
+// Table name: HRDataset_v14
+
+// ---------- Measures ----------
+
+Employees = COUNTROWS(HRDataset_v14)
+
+Leavers =
+CALCULATE(
+    COUNTROWS(HRDataset_v14),
+    HRDataset_v14[Termd] = 1
+)
+
+Attrition Rate = DIVIDE([Leavers], [Employees])
+
+Voluntary Leavers =
+CALCULATE(
+    COUNTROWS(HRDataset_v14),
+    HRDataset_v14[EmploymentStatus] = "Voluntarily Terminated"
+)
+
+Voluntary Rate = DIVIDE([Voluntary Leavers], [Employees])
+
+Avg Salary = AVERAGE(HRDataset_v14[Salary])
+Avg Engagement = AVERAGE(HRDataset_v14[EngagementSurvey])
+Avg Satisfaction = AVERAGE(HRDataset_v14[EmpSatisfaction])
+
+Avg Tenure of Leavers = AVERAGE(HRDataset_v14[Tenure Years])
+
+// ---------- Calculated columns ----------
+
+// Years between hire and termination; blank for active employees
+Tenure Years =
+IF(
+    ISBLANK(HRDataset_v14[DateofTermination]),
+    BLANK(),
+    DIVIDE(
+        DATEDIFF(HRDataset_v14[DateofHire], HRDataset_v14[DateofTermination], DAY),
+        365.25
+    )
+)
+
+Termination Year = YEAR(HRDataset_v14[DateofTermination])
+
+// ---------- Power Query (M): custom column "Perf Order" ----------
+// Created in Power Query (Add Column > Custom Column), not in DAX,
+// so PerformanceScore can be sorted by it without a circular dependency.
+//
+// if [PerformanceScore] = "PIP" then 1
+// else if [PerformanceScore] = "Needs Improvement" then 2
+// else if [PerformanceScore] = "Fully Meets" then 3
+// else if [PerformanceScore] = "Exceeds" then 4
+// else null
