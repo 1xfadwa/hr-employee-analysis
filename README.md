@@ -2,8 +2,6 @@
 
 A two-page Power BI dashboard that analyzes employee attrition in the Kaggle "Human Resources Data Set". It shows how large attrition is, where it concentrates, why employees leave, and which factors (pay, performance, hiring source) are associated with leaving, and ends each page with findings and recommendations an HR Business Partner could act on.
 
-![Attrition Overview](screenshots/overview.png)
-
 ## Business question
 
 Where is employee attrition concentrated, why do employees leave, and what can HR do to reduce it?
@@ -49,8 +47,8 @@ Power BI Desktop, Power Query (M), DAX (`CALCULATE`, `DIVIDE`, `DATEDIFF`, `ISBL
 ## Dashboard pages
 
 1. **Attrition Overview:** headline numbers, attrition by department, reasons for leaving, exits by year.
-2. **What Drives Attrition:** pay and engagement by employment status, attrition by performance score, attrition by hiring source.
-
+![Attrition Overview](screenshots/overview.png)
+3. **What Drives Attrition:** pay and engagement by employment status, attrition by performance score, attrition by hiring source.
 ![What Drives Attrition](screenshots/drivers.png)
 
 ## Key findings
